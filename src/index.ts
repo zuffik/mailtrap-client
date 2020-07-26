@@ -1,2 +1,2 @@
-export {MailtrapClient} from './MailtrapClient';
-export {HttpClient} from './api/HttpClient';
+export { MailtrapClient } from './MailtrapClient';
+export { HttpClient } from './api/HttpClient';
