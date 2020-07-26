@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Mailtrap.io api client with some added features",
   "license": "MIT",
+  "homepage": "https://github.com/zuffik/mailtrap-client",
+  "readme": "https://github.com/zuffik/mailtrap-client#README.md",
   "author": {
     "email": "kristian.zuffa@gmail.com",
     "name": "Kristián Žuffa",
