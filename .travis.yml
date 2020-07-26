@@ -6,14 +6,13 @@ cache:
     - node_modules
 script:
   - yarn build
-  - rm -rf src .prettierrc .nvmrc .gitignore
-    node_modules .travis.yml make-executable.js tsconfig.json
+  - rm -rf src .prettierrc .nvmrc .gitignore node_modules .travis.yml tsconfig.json
 deploy:
   provider: npm
   email: kristian.zuffa@gmail.com
   skip_cleanup: true
   api_key:
-    secure: Wj2j/leYM1efp1oUUXpmEoYvQQsM36ivMjBYR4+XOx1oEBhCJARnC2ykiRyhlsRuWZO4mxrLjondO5W7H4mNgnctcqdORzloPNclLPCe1J4/S8OzzFoEsR+cejXqE9GvtHEUo+56j/AotUk9qv3ZpuRj3lS6cjsDBHkN1EfAiqETDTEy/iBHlkr8egYvQk4ueE2WbWSD+O1zW4jg89laNZQ0HvdQ6YUt2MbwbhzDEWxJbVlk3Wo7os4SaVjkJeOINux1iBbSrG+qIhybdn85KnhuNlHHtbsumB4x800MJW+7hYQqCnuuEYlrtO68ctgMr8vihPUD+VuC3TwWyKJ38r3ClRq3yE2kJJedGx7NRvYevukjxf4pvYhirdCzNlIjUOlz+6M8iJT427a7nJ2ojdGa4l3NvauTgvrQnDS/uBCjPC30Cl38EEkdTQ9tLs9umdDgQVjxvKQ0W4h8lv5X1TszUBBWUJRCqhIEAfn6fOJwJa4GtP0H+6dlIFgAxSXGewOvJsOxexp0keorhVCUo+5xt7BehW2f9GXKTaBpmyulmszzJXIcfBy2RUhPeKZ+993WUaXcQwPiwq/YkF9MSkCUVC+z71+Hn9iYdOHHu1qamLhUDeiyuug4RThnaxqxjhtEZ3g7WiOJZPy2xKibnP9UOfdTdhB2/40zYYQEBU0=
+    secure: lutXt4yQN8IqFN1eF52ViCZ6uGKBD9i+KmAl1LT6uC2MEDxPuTzyZXU6RmPkmh0PcQEHsLhjOwgwqYgbl3UD4+QwDIUdEPw9YYEUl3luiFjJ9ahJTzArrFJACGK0DchacFPFGR+Vg7aJigjQOQkTkUjKdJpb6HO3YiZwFaA/pNq9o1GrGdLmDsjeC6cnVXE6CGWEbpIvi1RjPIwIeiYcm1F12H58wFV21MVwHxLp/gUkLHBFjVf7+oAogJylZ9B5WW14CLkcpU1SIsL9B3Na81xsSDY66R23fmtRepFAR8WuRRU+7HXoYbmPV+rAMc0qnhGMD7HVg+GjzEh9xwlmBi57oqEmSHuKpyjDXolIEr05c+sygo4lSnLdWrUdAjZ6WfIMNINy3myGi84Q030MGrrMBiJ842MLttll/ZOGp2NdP79kBkNC/TZAzzQzCdRtpCXEKnwsS2tlKVD/aCUdjtu5eCP++g+ojjOFt1FD1EqeKSQUW+3iDz88cQKegTTM6YUuvetEsjU8/vFLNox4P2vNEBgxOKxNpRRgZVWDxc8HSog+WBqWEeQRPr5oUtjIQMrprfwWfc4C9gWh1huyO7XH5iyu5dbxL3wDW18dfBJIteS4wu7jbQYD146YswYsvUEzPRE2Qs8rA0aq8NVa7P+0zGpPl6Zum4y2D2st5VU=
   on:
     repo: zuffik/mailtrap-client
     branch: master
