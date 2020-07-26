@@ -1,5 +1,7 @@
 # mailtrap-client
 
+[![Build Status](https://travis-ci.org/zuffik/mailtrap-client.svg?branch=master)](https://travis-ci.org/zuffik/mailtrap-client)
+
 Wrapper around [Mailtrap api](https://mailtrap.docs.apiary.io/) for javascript.
 Added polling for messages as _rxjs observer_.
 
