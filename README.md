@@ -34,9 +34,9 @@ Mailtrap client contains almost same structure as mailtrap api described in [doc
 
 | Valid client properties |
 |-------------------------|
-| user                    |
-| companies               |
-| inboxes                 |
-| sharedInboxes           |
-| messages                |
-| corsDomains             |
+| `user`                  |
+| `companies`             |
+| `inboxes`               |
+| `sharedInboxes`         |
+| `messages`              |
+| `corsDomains`           |

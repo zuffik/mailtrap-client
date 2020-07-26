@@ -1,7 +1,8 @@
-import { IHttpClient, User, UserEndpoint as IUserEndpoint } from 'mailtrap-client';
+import { User, UserEndpoint as IUserEndpoint } from 'mailtrap-client';
+import { HttpClient } from '../http/HttpClient';
 
 export class UserEndpoint implements IUserEndpoint {
-  constructor(private readonly http: IHttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   public async getUser(): Promise<User> {
     return await this.http.request('GET', '/user');

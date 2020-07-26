@@ -1,11 +1,8 @@
-import {
-  CorsDomain,
-  CorsDomainsEndpoint as ICorsDomainsEndpoint,
-  IHttpClient,
-} from 'mailtrap-client';
+import { CorsDomain, CorsDomainsEndpoint as ICorsDomainsEndpoint } from 'mailtrap-client';
+import { HttpClient } from '../http/HttpClient';
 
 export class CorsDomainsEndpoint implements ICorsDomainsEndpoint {
-  constructor(private readonly http: IHttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   public async getCorsDomains(): Promise<CorsDomain[]> {
     return await this.http.request('GET', `/cors_domains`);

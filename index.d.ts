@@ -2,43 +2,16 @@ declare module 'mailtrap-client' {
   export type HttpMethodWithoutBody = 'GET' | 'DELETE';
   export type HttpMethodWithBody = 'PATCH' | 'POST' | 'PUT';
   export type ResponseType = 'json' | 'text';
+  export type HttpMethod = HttpMethodWithoutBody | HttpMethodWithBody;
 
-  export interface IHttpClient {
-    setup(apiKey: string, urlBase: string): void;
-
-    request<T>(
-      method: HttpMethodWithoutBody,
-      url: string,
-      data?: RequestInit,
-      responseType?: ResponseType
-    ): Promise<T>;
-
-    request<T>(
-      method: HttpMethodWithBody,
-      url: string,
-      data?: any,
-      init?: RequestInit,
-      responseType?: ResponseType
-    ): Promise<T>;
-  }
-
-  export class HttpClient implements IHttpClient {
-    public setup(apiKey: string, urlBase: string): void;
-
-    public request<T>(
-      method: HttpMethodWithoutBody,
-      url: string,
-      data?: RequestInit,
-      responseType?: ResponseType
-    ): Promise<T>;
-    public request<T>(
-      method: HttpMethodWithBody,
-      url: string,
-      data?: any,
-      init?: RequestInit,
-      responseType?: ResponseType
-    ): Promise<T>;
-  }
+  export type HttpProvider = (
+    method: HttpMethod,
+    url: string,
+    headers: Record<string, any>,
+    responseType: ResponseType,
+    data?: any
+  ) => Promise<any>;
+  export const FetchProvider: HttpProvider;
 
   export class MailtrapClient {
     public readonly user: UserEndpoint;
@@ -50,7 +23,7 @@ declare module 'mailtrap-client' {
 
     private readonly apiKey: string;
 
-    constructor(apiKey: string, httpClient?: IHttpClient);
+    constructor(apiKey: string, httpClient?: HttpProvider);
   }
 
   export interface MessagesObservableOptions {

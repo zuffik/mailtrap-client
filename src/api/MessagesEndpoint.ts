@@ -1,5 +1,4 @@
 import {
-  IHttpClient,
   Message,
   MessageAnalyzeResult,
   MessageAttachment,
@@ -11,9 +10,10 @@ import {
   MessageSpamReport,
 } from 'mailtrap-client';
 import { MessagesObservable } from '../observers/MessagesObservable';
+import { HttpClient } from '../http/HttpClient';
 
 export class MessagesEndpoint implements IMessagesEndpoint {
-  constructor(private readonly http: IHttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   public async getMessages(idInbox: number): Promise<Message[]> {
     return await this.http.request('GET', `/inboxes/${idInbox}/messages`);

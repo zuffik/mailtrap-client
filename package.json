@@ -1,6 +1,6 @@
 {
   "name": "mailtrap-client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Mailtrap.io api client with some added features",
   "license": "MIT",
   "homepage": "https://github.com/zuffik/mailtrap-client",

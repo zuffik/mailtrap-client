@@ -1,13 +1,13 @@
 import {
   ForwardRule,
-  IHttpClient,
   Inbox,
   InboxesEndpoint as IInboxesEndpoint,
   InboxUser,
 } from 'mailtrap-client';
+import { HttpClient } from '../http/HttpClient';
 
 export class InboxesEndpoint implements IInboxesEndpoint {
-  constructor(private readonly http: IHttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   public async getInboxes(): Promise<Inbox[]> {
     return await this.http.request('GET', '/inboxes');

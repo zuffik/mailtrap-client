@@ -1,11 +1,8 @@
-import {
-  IHttpClient,
-  SharedInbox,
-  SharedInboxesEndpoint as ISharedInboxesEndpoint,
-} from 'mailtrap-client';
+import { SharedInbox, SharedInboxesEndpoint as ISharedInboxesEndpoint } from 'mailtrap-client';
+import { HttpClient } from '../http/HttpClient';
 
 export class SharedInboxesEndpoint implements ISharedInboxesEndpoint {
-  constructor(private readonly http: IHttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   public async deleteSharedInbox(id: number): Promise<SharedInbox> {
     return await this.http.request('DELETE', `/shared_inboxes/${id}`);
