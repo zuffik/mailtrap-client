@@ -1,9 +1,8 @@
-import {ForwardRule, Inbox, InboxesEndpoint as IInboxesEndpoint, InboxUser} from 'mailtrap-client';
-import {HttpClient} from "./HttpClient";
+import {ForwardRule, IHttpClient, Inbox, InboxesEndpoint as IInboxesEndpoint, InboxUser} from 'mailtrap-client';
 
 export class InboxesEndpoint implements IInboxesEndpoint {
     constructor(
-        private readonly http: HttpClient,
+        private readonly http: IHttpClient,
     ) {
     }
 

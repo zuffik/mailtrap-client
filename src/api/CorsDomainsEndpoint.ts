@@ -1,9 +1,8 @@
-import {CorsDomain, CorsDomainsEndpoint as ICorsDomainsEndpoint} from 'mailtrap-client';
-import {HttpClient} from "./HttpClient";
+import {CorsDomain, CorsDomainsEndpoint as ICorsDomainsEndpoint, IHttpClient} from 'mailtrap-client';
 
 export class CorsDomainsEndpoint implements ICorsDomainsEndpoint {
     constructor(
-        private readonly http: HttpClient,
+        private readonly http: IHttpClient,
     ) {
     }
 

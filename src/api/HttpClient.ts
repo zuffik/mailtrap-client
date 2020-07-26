@@ -1,10 +1,12 @@
-import {HttpMethodWithBody, HttpMethodWithoutBody, ResponseType} from "mailtrap-client";
+import {HttpMethodWithBody, HttpMethodWithoutBody, ResponseType, IHttpClient} from "mailtrap-client";
 
-export class HttpClient {
-    constructor(
-        private readonly apiKey: string,
-        private readonly urlBase: string = 'https://mailtrap.io/api/v1'
-    ) {
+export class HttpClient implements IHttpClient {
+    private apiKey?: string;
+    private urlBase?: string;
+
+    public setup(apiKey: string, urlBase: string) {
+        this.apiKey = apiKey;
+        this.urlBase = urlBase;
     }
 
     private hasBody = (method: HttpMethodWithoutBody | HttpMethodWithBody): method is HttpMethodWithBody => ['PATCH', 'POST', 'PUT'].indexOf(method) >= 0;
@@ -22,7 +24,7 @@ export class HttpClient {
             headers: {
                 ...requestInit?.headers,
                 'Content-Type': 'application/json',
-                'Api-Token': this.apiKey
+                'Api-Token': this.apiKey!
             }
         });
         return rType == 'json' ? await response.json() : await response.text();

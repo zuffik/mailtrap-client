@@ -3,11 +3,16 @@ declare module 'mailtrap-client' {
     export type HttpMethodWithBody = 'PATCH' | 'POST' | 'PUT';
     export type ResponseType = 'json' | 'text';
 
-    export class HttpClient {
-        private readonly apiKey: string;
-        private readonly urlBase: string;
+    export interface IHttpClient {
+        setup(apiKey: string, urlBase: string): void;
 
-        constructor(apiKey: string, urlBase?: string)
+        request<T>(method: HttpMethodWithoutBody, url: string, data?: RequestInit, responseType?: ResponseType): Promise<T>;
+
+        request<T>(method: HttpMethodWithBody, url: string, data?: any, init?: RequestInit, responseType?: ResponseType): Promise<T>;
+    }
+
+    export class HttpClient implements IHttpClient {
+        public setup(apiKey: string, urlBase: string): void;
 
         public request<T>(method: HttpMethodWithoutBody, url: string, data?: RequestInit, responseType?: ResponseType): Promise<T>;
         public request<T>(method: HttpMethodWithBody, url: string, data?: any, init?: RequestInit, responseType?: ResponseType): Promise<T>;
@@ -23,7 +28,27 @@ declare module 'mailtrap-client' {
 
         private readonly apiKey: string
 
-        constructor(apiKey: string);
+        constructor(apiKey: string, httpClient?: IHttpClient);
+    }
+
+    export interface MessagesObservableOptions {
+        pollInterval?: number,
+        date?: Date,
+        autoStart?: boolean,
+    }
+
+    export interface MessagesObservable {
+        new (
+            messages: MessagesEndpoint,
+            idInbox: number,
+            options: MessagesObservableOptions,
+        ): MessagesObservable;
+
+        start(): void;
+
+        stop(): void;
+
+        subscribe(next?: (value: Message[]) => void, error?: (error: any) => void, complete?: () => void): void;
     }
 
     /**
@@ -31,20 +56,27 @@ declare module 'mailtrap-client' {
      */
     export interface UserEndpoint {
         getUser(): Promise<User>;
-        patchUser(data: {user: Partial<User>}): Promise<User>;
+
+        patchUser(data: { user: Partial<User> }): Promise<User>;
+
         patchUserResetApiToken(): Promise<User>;
     }
 
     export interface CompaniesEndpoint {
         getCompanies(): Promise<Company[]>;
+
         getCompany(idCompany: number): Promise<Company>;
-        patchCompany(idCompany: number, data: {company: Partial<Company>}): Promise<Company>;
+
+        patchCompany(idCompany: number, data: { company: Partial<Company> }): Promise<Company>;
+
         deleteCompany(idCompany: number): Promise<Company>;
 
-        createCompanyInbox(idCompany: number, data: {inbox: Partial<Inbox>}): Promise<Inbox>;
+        createCompanyInbox(idCompany: number, data: { inbox: Partial<Inbox> }): Promise<Inbox>;
 
         getSharedUsers(idCompany: number): Promise<SharedUser[]>;
+
         getSharedUser(idCompany: number, idSharedUser: number): Promise<SharedUser>;
+
         deleteSharedUser(idCompany: number, idSharedUser: number): Promise<SharedUser>;
     }
 
@@ -52,59 +84,91 @@ declare module 'mailtrap-client' {
         getInboxes(): Promise<Inbox[]>;
 
         getInbox(idInbox: number): Promise<Inbox>;
-        patchInbox(idInbox: number, data: {inbox: Partial<Inbox>}): Promise<Inbox>;
+
+        patchInbox(idInbox: number, data: { inbox: Partial<Inbox> }): Promise<Inbox>;
+
         deleteInbox(idInbox: number): Promise<Inbox>;
+
         cleanInbox(idInbox: number): Promise<Inbox>;
+
         markAllAsReadInInbox(idInbox: number): Promise<Inbox>;
+
         resetInboxCredentials(idInbox: number): Promise<Inbox>;
+
         resetInboxEmailUsername(idInbox: number): Promise<Inbox>;
+
         toggleInboxEmailUsername(idInbox: number): Promise<Inbox>;
 
         getForwardRules(idInbox: number): Promise<ForwardRule[]>;
+
         createForwardRule(idInbox: number): Promise<ForwardRule>;
+
         getForwardRule(idInbox: number, idForwardRule: number): Promise<ForwardRule>;
-        patchForwardRule(idInbox: number, idForwardRule: number, data: {forward_rule: Partial<ForwardRule>}): Promise<ForwardRule>;
+
+        patchForwardRule(idInbox: number, idForwardRule: number, data: { forward_rule: Partial<ForwardRule> }): Promise<ForwardRule>;
+
         deleteForwardRule(idInbox: number, idForwardRule: number): Promise<ForwardRule>;
 
         getInboxUsers(idInbox: number): Promise<InboxUser[]>;
+
         getInboxUser(idInbox: number, idInboxUser: number): Promise<InboxUser>;
+
         deleteInboxUser(idInbox: number, idInboxUser: number): Promise<InboxUser>;
     }
 
     export interface SharedInboxesEndpoint {
         getSharedInboxes(): Promise<SharedInbox[]>;
+
         deleteSharedInbox(id: number): Promise<SharedInbox>;
     }
 
     export interface MessagesEndpoint {
         getMessages(idInbox: number): Promise<Message[]>;
+
         getMessage(idInbox: number, idMessage: number): Promise<Message>;
-        patchMessage(idInbox: number, idMessage: number, data: {message: Partial<Message>}): Promise<Message>;
+
+        patchMessage(idInbox: number, idMessage: number, data: { message: Partial<Message> }): Promise<Message>;
+
         deleteMessage(idInbox: number, idMessage: number): Promise<Message>;
-        forwardMessage(idInbox: number, idMessage: number, data: {email: string}): Promise<MessageOnlyResult>;
+
+        forwardMessage(idInbox: number, idMessage: number, data: { email: string }): Promise<MessageOnlyResult>;
 
         getMessageBody(idInbox: number, idMessage: number, type: 'html' | 'htmlsource' | 'txt' | 'raw' | 'eml'): Promise<string>;
+
         // same as above but without the last parameter
         getMessageBodyHtml(idInbox: number, idMessage: number): Promise<string>;
+
         getMessageBodyHtmlSource(idInbox: number, idMessage: number): Promise<string>;
+
         getMessageBodyTxt(idInbox: number, idMessage: number): Promise<string>;
+
         getMessageBodyRaw(idInbox: number, idMessage: number): Promise<string>;
+
         getMessageBodyEml(idInbox: number, idMessage: number): Promise<string>;
 
         getMessageHeaders(idInbox: number, idMessage: number): Promise<MessageHeaders>;
+
         getMessageSpamReport(idInbox: number, idMessage: number): Promise<MessageSpamReport>;
+
         getMessageAnalyze(idInbox: number, idMessage: number): Promise<MessageAnalyzeResult>;
 
         getMessageAttachments(idInbox: number, idMessage: number): Promise<MessageAttachment[]>;
+
         getMessageAttachment(idInbox: number, idMessage: number, idAttachment: number): Promise<MessageAttachment>;
+
+        watch(idInbox: number, options?: MessagesObservableOptions): MessagesObservable;
     }
 
     export interface CorsDomainsEndpoint {
         getCorsDomains(): Promise<CorsDomain[]>;
+
         getCorsDomain(idCorsDomain: number): Promise<CorsDomain>;
+
         // something suspicious here
         createCorsDomain(idCorsDomain: number): Promise<CorsDomain>;
-        patchCorsDomain(idCorsDomain: number, data: {cors_domain: Partial<CorsDomain>}): Promise<CorsDomain>;
+
+        patchCorsDomain(idCorsDomain: number, data: { cors_domain: Partial<CorsDomain> }): Promise<CorsDomain>;
+
         deleteCorsDomain(idCorsDomain: number): Promise<CorsDomain>;
     }
 
@@ -207,7 +271,6 @@ declare module 'mailtrap-client' {
             errors: MessageAnalyzeResultError[];
         }
     }
-
 
 
     /**

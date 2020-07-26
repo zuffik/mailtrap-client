@@ -1,9 +1,8 @@
-import {SharedInbox, SharedInboxesEndpoint as ISharedInboxesEndpoint} from 'mailtrap-client';
-import {HttpClient} from "./HttpClient";
+import {IHttpClient, SharedInbox, SharedInboxesEndpoint as ISharedInboxesEndpoint} from 'mailtrap-client';
 
 export class SharedInboxesEndpoint implements ISharedInboxesEndpoint {
     constructor(
-        private readonly http: HttpClient,
+        private readonly http: IHttpClient,
     ) {
     }
 

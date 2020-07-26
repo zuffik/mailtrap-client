@@ -1,9 +1,8 @@
-import {CompaniesEndpoint as ICompaniesEndpoint, Company, Inbox, SharedUser} from 'mailtrap-client';
-import {HttpClient} from "./HttpClient";
+import {CompaniesEndpoint as ICompaniesEndpoint, Company, IHttpClient, Inbox, SharedUser} from 'mailtrap-client';
 
 export class CompaniesEndpoint implements ICompaniesEndpoint {
     constructor(
-        private readonly http: HttpClient,
+        private readonly http: IHttpClient,
     ) {
     }
 

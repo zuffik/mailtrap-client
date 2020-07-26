@@ -1,17 +1,20 @@
-import {HttpClient} from "./HttpClient";
 import {
+    IHttpClient,
     Message,
     MessageAnalyzeResult,
     MessageAttachment,
     MessageHeaders,
     MessageOnlyResult,
     MessagesEndpoint as IMessagesEndpoint,
+    MessagesObservable as IMessagesObservable,
+    MessagesObservableOptions,
     MessageSpamReport
 } from "mailtrap-client";
+import {MessagesObservable} from "../observers/MessagesObservable";
 
 export class MessagesEndpoint implements IMessagesEndpoint {
     constructor(
-        private readonly http: HttpClient,
+        private readonly http: IHttpClient,
     ) {
     }
 
@@ -77,5 +80,9 @@ export class MessagesEndpoint implements IMessagesEndpoint {
 
     public async getMessageAttachments(idInbox: number, idMessage: number): Promise<MessageAttachment[]> {
         return await this.http.request('GET', `/inboxes/${idInbox}/messages/${idMessage}/attachments`);
+    }
+
+    public watch(idInbox: number, options: MessagesObservableOptions = {}): IMessagesObservable {
+        return new MessagesObservable(this, idInbox, options) as unknown as IMessagesObservable;
     }
 }

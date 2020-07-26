@@ -1,9 +1,8 @@
-import {User, UserEndpoint as IUserEndpoint} from 'mailtrap-client';
-import {HttpClient} from "./HttpClient";
+import {IHttpClient, User, UserEndpoint as IUserEndpoint} from 'mailtrap-client';
 
 export class UserEndpoint implements IUserEndpoint {
     constructor(
-        private readonly http: HttpClient,
+        private readonly http: IHttpClient,
     ) {
     }
 
