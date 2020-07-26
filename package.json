@@ -1,0 +1,45 @@
+{
+  "name": "mailtrap-client",
+  "version": "1.0.0",
+  "description": "Mailtrap.io api client with some added features",
+  "license": "MIT",
+  "author": {
+    "email": "kristian.zuffa@gmail.com",
+    "name": "Kristián Žuffa",
+    "url": "https://zuffik.eu"
+  },
+  "main": "./dist/index.js",
+  "keywords": [
+    "mailtrap",
+    "email",
+    "fakemail",
+    "mailtrap.io",
+    "mail client"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "rxjs": "^6.6.0"
+  },
+  "devDependencies": {
+    "husky": "4.2.5",
+    "lint-staged": "10.2.11",
+    "prettier": "2.0.5",
+    "typescript": "3.9.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "./node_modules/.bin/prettier --config ./.prettierrc --write"
+    ],
+    "index.d.ts": [
+      "./node_modules/.bin/prettier --config ./.prettierrc --write"
+    ]
+  }
+}
