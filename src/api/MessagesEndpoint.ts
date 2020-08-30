@@ -52,7 +52,11 @@ export class MessagesEndpoint implements IMessagesEndpoint {
     idMessage: number,
     type: 'html' | 'htmlsource' | 'txt' | 'raw' | 'eml'
   ): Promise<string> {
-    return await this.http.request('GET', `/inboxes/${idInbox}/messages/${idMessage}/body.${type}`);
+    return await this.http.request(
+      'GET',
+      `/inboxes/${idInbox}/messages/${idMessage}/body.${type}`,
+      'text'
+    );
   }
 
   public async getMessageBodyEml(idInbox: number, idMessage: number): Promise<string> {
