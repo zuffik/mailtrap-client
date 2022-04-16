@@ -23,7 +23,7 @@
     "watch": "tsc --watch"
   },
   "dependencies": {
-    "axios": "0.21.1",
+    "axios": "0.21.2",
     "rxjs": "^6.6.0"
   },
   "devDependencies": {
